@@ -1,5 +1,6 @@
 import {cartModel} from "../models/carts.model.js";
 import {productsModel} from '../models/products.model.js'
+import logger from "../../logger.js";
 
 
 class CartManager {
@@ -10,7 +11,7 @@ class CartManager {
             const carts = await cartModel.find().lean();
             return carts;
         } catch (err) {
-            console.error('Error al obtener los carritos:', err.message);
+          logger.error('Error al obtener los carritos:', err.message);
             return [];
         }
     };
@@ -56,7 +57,7 @@ class CartManager {
 
         return stockInfo;
     } catch (error) {
-        console.error("Error al obtener el stock:", error);
+       logger.error("Error al obtener el stock:", error);
         return { error: "Error interno al obtener el stock" };
       }
     };
@@ -67,7 +68,7 @@ class CartManager {
 
         // Verifica que 'productos' sea definido y que sea un array
          if (!productos || !Array.isArray(productos)) {
-            console.error('La propiedad "productos" no es un array válido.');
+          logger.error('La propiedad "productos" no es un array válido.');
             return totalAmount;
         }
 
@@ -78,7 +79,7 @@ class CartManager {
 
         return totalAmount;
     } catch (error) {
-        console.error("Error al calcular el monto:", error);
+       logger.error("Error al calcular el monto:", error);
         return 0; // O manejar el error de otra manera según tus necesidades
     }
 };
@@ -90,7 +91,7 @@ class CartManager {
 
             return cart;
         } catch (err) {
-            console.error('Error al obtener el carrito por ID:', err.message);
+         logger.error('Error al obtener el carrito por ID:', err.message);
             return err;
         }
     };
@@ -106,7 +107,7 @@ class CartManager {
             const cart = await cartModel.create(cartData);
             return cart;
         } catch (err) {
-            console.error('Error al crear el carrito:', err.message);
+          logger.error('Error al crear el carrito:', err.message);
             return err;
         }
     };
@@ -128,7 +129,7 @@ class CartManager {
     
             return await cartModel.findById(cid);
         } catch (err) {
-            console.error('Error al agregar el producto al carrito:', err.message);
+          logger.error('Error al agregar el producto al carrito:', err.message);
             return err;
         }
     };
