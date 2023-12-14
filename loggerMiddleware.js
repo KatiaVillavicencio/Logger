@@ -1,9 +1,9 @@
-const winston = require("winston");
-const logger = require("./logger");
+// loggerMiddleware.mjs
+import logger from "./logger.js";
 
 const loggerMiddleware = function (req, res, next) {
   req.logger = logger;
   next();
 };
 
-module.exports = loggerMiddleware;
+export default loggerMiddleware;

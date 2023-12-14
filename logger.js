@@ -1,20 +1,20 @@
-const winston = require("winston");
+import { createLogger, format as _format, transports as _transports } from "winston";
 
-const devLogger = winston.createLogger({
+const devLogger = createLogger({
   level: "silly",
-  format: winston.format.combine(
-    winston.format.colorize(),
-    winston.format.simple()
+  format: _format.combine(
+    _format.colorize(),
+    _format.simple()
   ),
-  transports: [new winston.transports.Console()],
+  transports: [new _transports.Console()],
 });
 
-const prodLogger = winston.createLogger({
+const prodLogger = createLogger({
   level: "info",
-  format: winston.format.json(),
+  format: _format.json(),
   transports: [
-    new winston.transports.File({ filename: "INFO.log" }),
-    new winston.transports.File({ filename: "ERRORS.log", level: "error" }),
+    new _transports.File({ filename: "INFO.log" }),
+    new _transports.File({ filename: "ERRORS.log", level: "error" }),
   ],
 });
 
@@ -23,4 +23,4 @@ const logger = process.env.ENV === "production" ? prodLogger : devLogger;
 
 logger.info(`Winston ENV: ${process.env.ENV}`);
 
-module.exports = logger;
+export default logger;

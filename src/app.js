@@ -9,6 +9,7 @@ import connectToDB from "./config/server.config.js"
 import {__dirname, authorization, passportCall} from "./utils.js"
 import initializePassword from './config/passport.config.js';
 import mongoose from 'mongoose'
+import loggerMiddleware from '../loggerMiddleware.js';
 
 
 //routes
@@ -41,6 +42,7 @@ app.use(express.static(__dirname+"/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
+app.use(loggerMiddleware);
 
 const httpServer=app.listen(PORT,()=>{
     console.log(`server escuchandoooo en ${PORT}`)
