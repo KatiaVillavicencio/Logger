@@ -1,1 +1,1 @@
-# Logger
+# Implementación de logger
