@@ -55,9 +55,36 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+//guardar
+
+/*const saveProduct = async (req, res) => {
+  const newProduct = req.body;
+  try {
+      if (!isValidProduct(newProduct)) {
+          throw new ProductCreationError("datos del producto invalidos"); 
+      }
+      
+      const result = await productDao.saveProduct(newProduct);
+      logger.info("Producto creado correctamente:", result);
+      res.json({ status: "success producto creado", result: result });
+  } catch (error) {
+      if (error instanceof ProductCreationError) {
+          logger.error("Error al crear el producto:", error.message);
+          res.status(error.statusCode).send({ status: "error", error: error.message });
+      } else {
+          logger.error("Error general al crear el producto:", error);
+          console.error(error);
+          res.status(500).send({ status: "error", error: "Algo salio mal intenta mas tarde" });
+      }
+  }
+};*/
+
+
+
 module.exports = {
   getProducts,
   getProductById,
   deleteProduct,
   updateProduct,
+  //saveProduct,
 };

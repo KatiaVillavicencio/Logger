@@ -18,6 +18,7 @@ import routerC from './routers/carts.router.js';
 import routerV from './routers/views.router.js';
 import userRouter from './routers/user.router.js';
 import ticketRouter from './routers/tickets.router.js';
+import routerL from './routers/mocking.router.js';
 
 //socket.io
 import socketProducts from "./listeners/socketProducts.js"
@@ -111,6 +112,7 @@ app.use("api/products", routerP)
 app.use("api/carts", routerC)
 app.use("/users", userRouter)
 app.use("/tickets", ticketRouter)
+app.use("/logerTest", routerL)
 //app.use('/api/sessions',userRouter)//
 
 
@@ -173,7 +175,7 @@ app.get('/admin',passportCall('jwt'), authorization('user'),(req,res) =>{
 
 //mocking//
 
-function getRandomNumber(min, max) {
+/*function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 app.get("/mockingproducts", async(req,res)=>{
@@ -195,4 +197,5 @@ app.get("/mockingproducts", async(req,res)=>{
     }
 
     res.send(products);
-})
+}) */
+
