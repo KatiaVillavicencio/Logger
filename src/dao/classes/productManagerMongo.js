@@ -1,87 +1,60 @@
-import {productsModel} from "../models/products.model.js"
+import { productsModel } from "../models/products.model.js";
 
+class ProductManager {
 
-export default class ProductManager{
-    categories = async () => {
+    async getProducts() {
         try {
-            const categories = await productsModel.aggregate([
-                {
-                    $group: {
-                        _id: null,
-                        categories: { $addToSet: "$category" }
-                    }
-                }
-            ])
-
-            return categories[0].categories
-
-        }
-        catch (err) {
-            console.log(err);
-            return err
-        }
-
-    }
-
-    getProductsView = async () => {
-        try {
-            return await productsModel.find().lean();
-
-        } catch (err) {
-            return err
-        }
-    };
-
-    getProducts = async (filter, options) => {
-        try {
-            //  return await productsModel.find().lean();
-            return await productsModel.paginate(filter, options);
-        } catch (err) {
-            return err
+            const products = await productsModel.find();
+            return products;
+        } catch (error) {
+            console.log(error);
+            return null;
         }
     }
 
-
-    getProductById = async (id) => {
+    async getProductById(id) {
         try {
-            return await productsModel.findById(id)
             
-        } catch (err) {
-            return {error: err.message}
+            const product = await productsModel.findOne({ _id: id });
+            return product;
+        } catch (error) {
+            console.log(error);n
+            return null;
         }
-    
     }
-//agregar
 
-    addProduct = async (product) => {
+    async saveProduct(product) {
         try {
-            await productsModel.create(product);
-            return await productsModel.findOne({ title: product.title })
+          
+            const result = await productsModel.create(product);
+            return result;
+        } catch (error) {
+            console.log(error);
+            return null;
         }
-        catch (err) {
-            return err
-        }
-      
-      }
-//actualizar
+    }
 
-      updateProduct = async (id, product) => {
+    async updateProduct(id, product) {
         try {
-            return await productsModel.findByIdAndUpdate(id, { $set: product })
-        } catch (err) {
-            return err
+            
+            const result = await productsModel.updateOne({ _id: id }, { $set: product });
+            return result;
+        } catch (error) {
+            console.log(error);
+            return null;
         }
-      
-      }
-// delete
+    }
 
-      deleteProduct = async (id) => {
+    async deleteProduct(id) {
         try {
-            return await productsModel.findByIdAndDelete(id);
-        } catch (err) {
-            return err
+            
+            const result = await productsModel.deleteOne({ _id: id });
+            return result;
+        } catch (error) {
+            console.log(error);
+            return null;
         }
-
     }
 }
+export default ProductManager;
 

@@ -1,4 +1,4 @@
-import ticketsModel from "../models/tickets.model.js"
+import { ticketModel } from "../models/tickets.model.js"
 
 export default class Tickets {
     constructor() {
@@ -6,12 +6,12 @@ export default class Tickets {
     }
 
     get = async () => {
-        let tickets = await ticketsModel.find()
+        let tickets = await ticketModel.find()
         return tickets
     }
     addTicket = async (newticket) => {
         try {
-            let result = await ticketsModel.create(newticket);
+            let result = await ticketModel.create(newticket);
             return result;
         
         } catch (error) {
